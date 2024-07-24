@@ -3,6 +3,7 @@ package cpen_208.backend.controller;
 import cpen_208.backend.dto.StudentDto;
 import cpen_208.backend.service.StudentService;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,10 +14,10 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/students")
 public class StudentController {
-
+    @Autowired
     private StudentService studentService;
 
-    // Build Add Student Rest API
+    // Build Add Student Rest
     @PostMapping
     public ResponseEntity<StudentDto> createStudent(@RequestBody StudentDto studentDto){
         StudentDto savedStudent = studentService.createStudent(studentDto);

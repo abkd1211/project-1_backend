@@ -6,7 +6,8 @@ import cpen_208.backend.exception.ResourceNotFoundException;
 import cpen_208.backend.mapper.StudentMapper;
 import cpen_208.backend.repository.StudentRepository;
 import cpen_208.backend.service.StudentService;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,9 +15,9 @@ import java.util.stream.Collectors;
 
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class StudentServiceImpl implements StudentService {
-
+    @Autowired
    private StudentRepository studentRepository;
 
     @Override
@@ -25,7 +26,7 @@ public class StudentServiceImpl implements StudentService {
         Student student = StudentMapper.mapToStudent(studentDto);
         Student savedStudent = studentRepository.save(student);
 
-        return StudentMapper.mapToStudentDto(savedStudent);
+        return StudentMapper.mapToStudentDto(studentRepository.findById(savedStudent.getId()).orElse(savedStudent));
     }
 
     @Override
